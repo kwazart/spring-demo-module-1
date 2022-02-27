@@ -4,6 +4,6 @@ import com.polozov.springDemo.entity.Question;
 
 import java.util.List;
 
-public interface CsvDao {
+public interface DataDao {
     List<Question> getQuestions();
 }

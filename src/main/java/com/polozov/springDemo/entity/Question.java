@@ -15,5 +15,4 @@ public class Question {
     private String question;
     private Set<String> answers;
     private boolean hasFreeAnswer;
-    private String studentAnswer;
 }
