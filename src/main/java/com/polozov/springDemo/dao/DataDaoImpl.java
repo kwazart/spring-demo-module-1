@@ -6,6 +6,7 @@ import com.opencsv.exceptions.CsvValidationException;
 import com.polozov.springDemo.entity.Question;
 import com.polozov.springDemo.util.QuestionConverter;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
