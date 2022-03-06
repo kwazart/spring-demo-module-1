@@ -5,5 +5,6 @@ import com.polozov.springDemo.entity.Question;
 import java.util.List;
 
 public interface DataPrinter {
-    void printQuestionAndGetAnswer(List<Question> questions);
+    void printQuestionAndGetAnswer(Question questions);
+    void printResult(boolean isExamPassed);
 }

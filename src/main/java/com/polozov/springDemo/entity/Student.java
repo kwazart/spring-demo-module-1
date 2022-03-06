@@ -11,9 +11,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Question {
-    private String question;
-    private Set<String> answers;
-    private boolean hasFreeAnswer;
-    private String rightAnswer;
+public class Student {
+    private String firstName;
+    private String lastName;
+    private Set<StudentAnswer> answers;
 }
