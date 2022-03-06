@@ -1,6 +1,5 @@
 package com.polozov.springDemo.dao;
 
-import com.polozov.springDemo.entity.Question;
 import com.polozov.springDemo.util.QuestionConverter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

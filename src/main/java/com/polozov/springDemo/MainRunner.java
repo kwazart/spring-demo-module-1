@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
 @ComponentScan
-//@PropertySource("classpath:app.properties") // не работает хотя файл есть
+@PropertySource("classpath:app.properties")
 public class MainRunner {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(MainRunner.class);

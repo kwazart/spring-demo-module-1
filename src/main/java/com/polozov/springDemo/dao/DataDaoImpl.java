@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Repository
 public class DataDaoImpl implements DataDao {
 
-    @Value("/questions.csv")
+    @Value("${filename}")
     private String fileName;
     private final QuestionConverter converter;
 

@@ -18,7 +18,7 @@ public class ExamServiceImpl implements ExamService {
     private final DataPrinter printer;
     private final DataInput dataInput;
 
-    @Value("3")
+    @Value("${count}")
     private String boundQuantityOfRightAnswers;
 
     public ExamServiceImpl(DataDao dao, DataPrinter printer, DataInput dataInput) {

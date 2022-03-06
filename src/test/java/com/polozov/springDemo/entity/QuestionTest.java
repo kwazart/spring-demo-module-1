@@ -5,12 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Class - Question")
-public class Question {
+public class QuestionTest {
 
     @DisplayName("Корректное создание конструктором пустого объекта")
     @Test
     void shouldHaveCorrectConstructorCreateEmptyObject() {
-        Question question = new Question();
-        Assertions.assertNotNull(question);
+        QuestionTest questionTest = new QuestionTest();
+        Assertions.assertNotNull(questionTest);
     }
 }
