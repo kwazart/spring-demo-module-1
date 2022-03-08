@@ -19,18 +19,23 @@ import java.util.stream.Collectors;
 @Repository
 public class DataDaoImpl implements DataDao {
 
-    @Value("${filename}")
-    private String fileName;
+    private final String fileName;
     private final QuestionConverter converter;
 
-    public DataDaoImpl(QuestionConverter converter) {
+    public DataDaoImpl(QuestionConverter converter, @Value("${filename}") String fileName) {
         this.converter = converter;
+        this.fileName = fileName;
     }
 
-    public List<List<String>> getStringQuestion(String fileNameFromMethod) {
+    public List<Question> getQuestions() {
+        List<List<String>> questionAndAnswersList = getData();
+        return convertStringsToQuestions(questionAndAnswersList);
+    }
+
+    public List<List<String>> getData() {
         List<List<String>> questionAndAnswersList = new ArrayList<>();
 
-        InputStream in = getClass().getResourceAsStream(fileNameFromMethod == null ? fileName : fileNameFromMethod);
+        InputStream in = getClass().getResourceAsStream(fileName);
         if (in != null) {
             InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
 
@@ -43,9 +48,9 @@ public class DataDaoImpl implements DataDao {
                 e.printStackTrace();
             }
         }
-
         return questionAndAnswersList;
     }
+
 
     public List<Question> convertStringsToQuestions(List<List<String>> inputLines) {
         return inputLines.stream()

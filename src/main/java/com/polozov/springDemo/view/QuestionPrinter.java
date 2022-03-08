@@ -7,15 +7,28 @@ import java.util.List;
 
 @Component
 public class QuestionPrinter implements DataPrinter {
-    public void printQuestionAndGetAnswer(Question question) {
 
-        System.out.println("\nQuestion: " + question.getQuestion());
+    public void printQuestionAndGetAnswer(Question question) {
         if (!question.isHasFreeAnswer()) {
             char ch = 'a';
             for (String s : question.getAnswers()) {
                 System.out.println(ch++ + ". " + s);
             }
         }
+    }
+
+    @Override
+    public void printQuestion(String question) {
+        System.out.println("\nQuestion: " + question);
+    }
+
+    @Override
+    public void printAnswer(String answer, char variant) {
+        System.out.println(variant + ". " + answer);
+    }
+
+    @Override
+    public void printGettingAnswer() {
         System.out.print("Your answer: ");
     }
 

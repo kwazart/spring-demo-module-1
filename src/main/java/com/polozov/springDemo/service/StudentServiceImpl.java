@@ -16,7 +16,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student save() {
+    public Student fillStudent() {
         studentPrinter.askFirstName();
         String firstName = dataInput.getData();
         studentPrinter.askLastName();

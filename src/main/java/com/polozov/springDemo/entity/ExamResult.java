@@ -11,7 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Student {
-    private String firstName;
-    private String lastName;
+public class ExamResult {
+    private Student student;
+    private Set<StudentAnswer> studentAnswer;
 }
