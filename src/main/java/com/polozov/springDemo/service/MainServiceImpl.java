@@ -17,7 +17,7 @@ public class MainServiceImpl implements MainService {
     private final ExamService examService;
     private final DataPrinter printer;
 
-    public MainServiceImpl(StudentService studentService, ExamService examService, DataPrinter printer, @Value("${count}") String boundQuantityOfRightAnswers) {
+    public MainServiceImpl(StudentService studentService, ExamService examService, DataPrinter printer, @Value("${countOfRightAnswer}") String boundQuantityOfRightAnswers) {
         this.studentService = studentService;
         this.examService = examService;
         this.printer = printer;
