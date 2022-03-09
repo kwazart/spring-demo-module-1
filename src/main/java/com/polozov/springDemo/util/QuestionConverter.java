@@ -4,6 +4,7 @@ import com.polozov.springDemo.entity.Question;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class QuestionConverter {
@@ -36,5 +37,13 @@ public class QuestionConverter {
                     .build();
         }
         return Optional.ofNullable(question);
+    }
+
+    public List<Question> convertStringsToQuestions(List<List<String>> inputLines) {
+        return inputLines.stream()
+                .map(this::convertListStringToQuestion)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 }

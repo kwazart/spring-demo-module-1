@@ -13,23 +13,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
-public class DataDaoImpl implements DataDao {
+public class QuestionDaoImpl implements QuestionDao {
 
     private final String fileName;
     private final QuestionConverter converter;
 
-    public DataDaoImpl(QuestionConverter converter, @Value("${filename}") String fileName) {
+    public QuestionDaoImpl(QuestionConverter converter, @Value("${filename}") String fileName) {
         this.converter = converter;
         this.fileName = fileName;
     }
 
     public List<Question> getQuestions() {
         List<List<String>> questionAndAnswersList = getData();
-        return convertStringsToQuestions(questionAndAnswersList);
+        return converter.convertStringsToQuestions(questionAndAnswersList);
     }
 
     public List<List<String>> getData() {
@@ -49,14 +47,5 @@ public class DataDaoImpl implements DataDao {
             }
         }
         return questionAndAnswersList;
-    }
-
-
-    public List<Question> convertStringsToQuestions(List<List<String>> inputLines) {
-        return inputLines.stream()
-                .map(converter::convertListStringToQuestion)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList());
     }
 }

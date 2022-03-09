@@ -13,5 +13,6 @@ import java.util.Set;
 @Builder
 public class ExamResult {
     private Student student;
-    private Set<StudentAnswer> studentAnswer;
+    private Set<StudentAnswer> incorrectStudentAnswer;
+    private Set<StudentAnswer> correctStudentAnswer;
 }

@@ -7,17 +7,19 @@ import com.polozov.springDemo.view.DataPrinter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Formatter;
+import java.util.List;
 import java.util.Set;
 
 @Service
 public class MainServiceImpl implements MainService {
 
-    private final String boundQuantityOfRightAnswers;
+    private final Integer boundQuantityOfRightAnswers;
     private final StudentService studentService;
     private final ExamService examService;
     private final DataPrinter printer;
 
-    public MainServiceImpl(StudentService studentService, ExamService examService, DataPrinter printer, @Value("${countOfRightAnswer}") String boundQuantityOfRightAnswers) {
+    public MainServiceImpl(StudentService studentService, ExamService examService, DataPrinter printer, @Value("${countOfRightAnswer}") Integer boundQuantityOfRightAnswers) {
         this.studentService = studentService;
         this.examService = examService;
         this.printer = printer;
@@ -26,27 +28,24 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public void startApp() {
-        Student student = this.studentService.fillStudent();
-        Set<StudentAnswer> studentAnswers = examService.processExam();
+        Student student = this.studentService.readStudent();
+        List<Set<StudentAnswer>> studentAnswers = examService.processExam();
         ExamResult result = ExamResult.builder()
                 .student(student)
-                .studentAnswer(studentAnswers)
+                .correctStudentAnswer(studentAnswers.get(0))
+                .incorrectStudentAnswer(studentAnswers.get(1))
                 .build();
 
-        printResult(checkExamResult(result.getStudentAnswer()));
+        boolean isPassed = checkExamResult(result.getCorrectStudentAnswer());
+        Formatter resultString = new Formatter();
+        resultString.format("%s, вы ответили правильно на %d вопросов, экзамен %s",
+                result.getStudent().getFirstName(),
+                result.getCorrectStudentAnswer().size(),
+                isPassed ? "пройден" : "не пройден");
+        printer.printLine(resultString.toString());
     }
 
     private boolean checkExamResult(Set<StudentAnswer> studentAnswers) {
-        int countOfRightAnswers = 0;
-        for (StudentAnswer sa : studentAnswers) {
-            if (sa.getQuestion().getRightAnswer().equalsIgnoreCase(sa.getAnswer())) {
-                countOfRightAnswers++;
-            }
-        }
-        return countOfRightAnswers >= Integer.parseInt(boundQuantityOfRightAnswers);
-    }
-
-    private void printResult(boolean result) {
-        printer.printResult(result);
+        return studentAnswers.size() >= boundQuantityOfRightAnswers;
     }
 }

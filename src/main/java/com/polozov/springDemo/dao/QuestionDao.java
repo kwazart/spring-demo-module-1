@@ -4,7 +4,6 @@ import com.polozov.springDemo.entity.Question;
 
 import java.util.List;
 
-public interface DataDao {
+public interface QuestionDao {
     List<Question> getQuestions();
-    List<Question> convertStringsToQuestions(List<List<String>> inputLines);
 }

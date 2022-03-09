@@ -1,29 +1,37 @@
 package com.polozov.springDemo.service;
 
 import com.polozov.springDemo.entity.Student;
-import com.polozov.springDemo.view.StudentPrinter;
+import com.polozov.springDemo.view.DataPrinter;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentServiceImpl implements StudentService{
 
-    private final StudentPrinter studentPrinter;
+    private final DataPrinter printer;
     private final DataInput dataInput;
 
-    public StudentServiceImpl(StudentPrinter studentPrinter, DataInput dataInput) {
-        this.studentPrinter = studentPrinter;
+    public StudentServiceImpl(DataPrinter printer, DataInput dataInput) {
+        this.printer = printer;
         this.dataInput = dataInput;
     }
 
     @Override
-    public Student fillStudent() {
-        studentPrinter.askFirstName();
+    public Student readStudent() {
+        askFirstName();
         String firstName = dataInput.getData();
-        studentPrinter.askLastName();
+        askLastName();
         String lastName = dataInput.getData();
         return Student.builder()
                 .firstName(firstName)
                 .lastName(lastName)
                 .build();
+    }
+
+    private void askFirstName() {
+        printer.printShortLine("Your firstname: ");
+    }
+
+    private void askLastName() {
+        printer.printShortLine("Your lastname: ");
     }
 }
