@@ -5,6 +5,7 @@
 
 <ol>
     <li>Xml-version for IoC-container (27.02.2022)</li>
+    <li>Annotation-config-version for IoC-container (06.03.2022)</li>
 </ol>
 
 <h3>To Run:</h3>

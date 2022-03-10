@@ -1,5 +1,7 @@
 package com.polozov.springDemo.service;
 
+import com.polozov.springDemo.entity.ExamResult;
+
 public interface ExamService {
-    void startExam();
+    ExamResult processExam();
 }
