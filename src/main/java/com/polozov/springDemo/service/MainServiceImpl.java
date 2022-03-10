@@ -14,7 +14,7 @@ import java.util.Set;
 @Service
 public class MainServiceImpl implements MainService {
 
-    private final Integer boundQuantityOfRightAnswers;
+    private final int boundQuantityOfRightAnswers;
     private final StudentService studentService;
     private final ExamService examService;
     private final DataPrinter printer;
@@ -29,12 +29,8 @@ public class MainServiceImpl implements MainService {
     @Override
     public void startApp() {
         Student student = this.studentService.readStudent();
-        List<Set<StudentAnswer>> studentAnswers = examService.processExam();
-        ExamResult result = ExamResult.builder()
-                .student(student)
-                .correctStudentAnswer(studentAnswers.get(0))
-                .incorrectStudentAnswer(studentAnswers.get(1))
-                .build();
+        ExamResult result  = examService.processExam();
+        result.setStudent(student);
 
         boolean isPassed = checkExamResult(result.getCorrectStudentAnswer());
         Formatter resultString = new Formatter();

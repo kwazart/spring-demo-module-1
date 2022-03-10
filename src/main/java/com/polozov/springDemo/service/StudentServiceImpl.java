@@ -21,10 +21,7 @@ public class StudentServiceImpl implements StudentService{
         String firstName = dataInput.getData();
         askLastName();
         String lastName = dataInput.getData();
-        return Student.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .build();
+        return new Student(firstName, lastName);
     }
 
     private void askFirstName() {

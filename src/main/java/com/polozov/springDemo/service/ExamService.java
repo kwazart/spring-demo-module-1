@@ -1,10 +1,7 @@
 package com.polozov.springDemo.service;
 
-import com.polozov.springDemo.entity.StudentAnswer;
-
-import java.util.List;
-import java.util.Set;
+import com.polozov.springDemo.entity.ExamResult;
 
 public interface ExamService {
-    List<Set<StudentAnswer>> processExam();
+    ExamResult processExam();
 }

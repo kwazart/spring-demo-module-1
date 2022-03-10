@@ -10,7 +10,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Student {
     private String firstName;
     private String lastName;

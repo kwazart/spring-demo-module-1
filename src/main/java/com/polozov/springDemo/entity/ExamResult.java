@@ -10,9 +10,13 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ExamResult {
     private Student student;
     private Set<StudentAnswer> incorrectStudentAnswer;
     private Set<StudentAnswer> correctStudentAnswer;
+
+    public ExamResult(Set<StudentAnswer> incorrectStudentAnswer, Set<StudentAnswer> correctStudentAnswer) {
+        this.incorrectStudentAnswer = incorrectStudentAnswer;
+        this.correctStudentAnswer = correctStudentAnswer;
+    }
 }

@@ -1,6 +1,7 @@
 package com.polozov.springDemo.service;
 
 import com.polozov.springDemo.dao.QuestionDao;
+import com.polozov.springDemo.entity.ExamResult;
 import com.polozov.springDemo.entity.Question;
 import com.polozov.springDemo.entity.StudentAnswer;
 import com.polozov.springDemo.view.DataPrinter;
@@ -25,7 +26,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public List<Set<StudentAnswer>> processExam() {
+    public ExamResult processExam() {
         List<Set<StudentAnswer>> answerList = new ArrayList<>();
         Set<StudentAnswer> incorrectAnswerSet = new HashSet<>();
         Set<StudentAnswer> correctAnswerSet = new HashSet<>();
@@ -41,10 +42,7 @@ public class ExamServiceImpl implements ExamService {
                 }
                 printer.printShortLine("Your answer: ");
                 String answer = dataInput.getData();
-                StudentAnswer studentAnswer = StudentAnswer.builder()
-                        .question(question)
-                        .answer(answer)
-                        .build();
+                StudentAnswer studentAnswer = new StudentAnswer(answer, question);
 
                 if (question.getRightAnswer().equalsIgnoreCase(answer)) {
                     correctAnswerSet.add(studentAnswer);
@@ -56,7 +54,7 @@ public class ExamServiceImpl implements ExamService {
 
         answerList.add(correctAnswerSet);
         answerList.add(incorrectAnswerSet);
-        return answerList;
+        return new ExamResult(correctAnswerSet, incorrectAnswerSet);
     }
 
 
