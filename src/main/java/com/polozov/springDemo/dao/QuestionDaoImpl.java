@@ -4,6 +4,7 @@ package com.polozov.springDemo.dao;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import com.polozov.springDemo.entity.Question;
+import com.polozov.springDemo.exception.QuestionsIOException;
 import com.polozov.springDemo.exception.QuestionsLoadingException;
 import com.polozov.springDemo.util.QuestionConverter;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,9 +45,9 @@ public class QuestionDaoImpl implements QuestionDao {
                     questionAndAnswersList.add(Arrays.asList(nextLine));
                 }
             } catch (CsvValidationException e) {
-                throw new QuestionsLoadingException();
+                throw new QuestionsLoadingException(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new QuestionsIOException(e);
             }
         }
         return questionAndAnswersList;
