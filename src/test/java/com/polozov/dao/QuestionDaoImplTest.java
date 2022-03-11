@@ -1,5 +1,7 @@
-package com.polozov.springDemo.dao;
+package com.polozov.dao;
 
+import com.polozov.springDemo.dao.QuestionDao;
+import com.polozov.springDemo.dao.QuestionDaoImpl;
 import com.polozov.springDemo.util.QuestionConverter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +16,7 @@ public class QuestionDaoImplTest {
     @Mock
     private QuestionConverter converter;
 
-    private final String FILENAME = "/questions.csv";
+    private final String FILENAME = "/additional/questions.csv";
 
     @DisplayName("Корректное создание конструктором")
     @Test

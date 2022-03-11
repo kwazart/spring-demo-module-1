@@ -3,12 +3,11 @@ package com.polozov.springDemo.service;
 import com.polozov.springDemo.entity.ExamResult;
 import com.polozov.springDemo.entity.Student;
 import com.polozov.springDemo.entity.StudentAnswer;
+import com.polozov.springDemo.util.LocaleUtil;
 import com.polozov.springDemo.view.DataPrinter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Formatter;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -18,12 +17,18 @@ public class MainServiceImpl implements MainService {
     private final StudentService studentService;
     private final ExamService examService;
     private final DataPrinter printer;
+    private final LocaleUtil localeUtil;
 
-    public MainServiceImpl(StudentService studentService, ExamService examService, DataPrinter printer, @Value("${countOfRightAnswer}") Integer boundQuantityOfRightAnswers) {
+    public MainServiceImpl(StudentService studentService,
+                           ExamService examService,
+                           DataPrinter printer,
+                           @Value("${countOfRightAnswer}") Integer boundQuantityOfRightAnswers,
+                           LocaleUtil localeUtil) {
         this.studentService = studentService;
         this.examService = examService;
         this.printer = printer;
         this.boundQuantityOfRightAnswers = boundQuantityOfRightAnswers;
+        this.localeUtil = localeUtil;
     }
 
     @Override
@@ -33,12 +38,13 @@ public class MainServiceImpl implements MainService {
         result.setStudent(student);
 
         boolean isPassed = checkExamResult(result.getCorrectStudentAnswer());
-        Formatter resultString = new Formatter();
-        resultString.format("%s, вы ответили правильно на %d вопросов, экзамен %s",
+
+        String code = "exam.result." + (isPassed ? "success" : "failed");
+
+        String resultString = localeUtil.getLocaleMessage(code, new String[] {
                 result.getStudent().getFirstName(),
-                result.getCorrectStudentAnswer().size(),
-                isPassed ? "пройден" : "не пройден");
-        printer.printLine(resultString.toString());
+                String.valueOf(result.getCorrectStudentAnswer().size())});
+        printer.printLine(resultString);
     }
 
     private boolean checkExamResult(Set<StudentAnswer> studentAnswers) {

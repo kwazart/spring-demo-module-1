@@ -1,0 +1,13 @@
+spring:
+  banner:
+    location: additional/banner.txt
+  output:
+    ansi:
+      enabled: ALWAYS
+  messages:
+    basename: i18n/messages
+
+
+countOfRightAnswer: 3
+filename: /additional/questions.csv
+main.locale: ru

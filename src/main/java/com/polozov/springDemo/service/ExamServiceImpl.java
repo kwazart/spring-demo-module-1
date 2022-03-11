@@ -4,10 +4,10 @@ import com.polozov.springDemo.dao.QuestionDao;
 import com.polozov.springDemo.entity.ExamResult;
 import com.polozov.springDemo.entity.Question;
 import com.polozov.springDemo.entity.StudentAnswer;
+import com.polozov.springDemo.util.LocaleUtil;
 import com.polozov.springDemo.view.DataPrinter;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,29 +18,31 @@ public class ExamServiceImpl implements ExamService {
     private final QuestionDao dao;
     private final DataPrinter printer;
     private final DataInput dataInput;
+    private final LocaleUtil localeUtil;
 
-    public ExamServiceImpl(QuestionDao dao, DataPrinter printer, DataInput dataInput) {
+    public ExamServiceImpl(QuestionDao dao, DataPrinter printer, DataInput dataInput, LocaleUtil localeUtil) {
         this.dao = dao;
         this.printer = printer;
         this.dataInput = dataInput;
+        this.localeUtil = localeUtil;
     }
 
     @Override
     public ExamResult processExam() {
-        List<Set<StudentAnswer>> answerList = new ArrayList<>();
+
         Set<StudentAnswer> incorrectAnswerSet = new HashSet<>();
         Set<StudentAnswer> correctAnswerSet = new HashSet<>();
         List<Question> questionList = dao.getQuestions();
         if (questionList.size() > 0) {
             for (Question question : questionList) {
-                printer.printLine("Question: " + question.getQuestion());
+                printer.printLine(localeUtil.getLocaleMessage("question") + ": " + question.getQuestion());
                 if (!question.isHasFreeAnswer()) {
                     char startVariant = 'a';
                     for (String answer : question.getAnswers()) {
                         printer.printLine(startVariant++ + ". " + answer);
                     }
                 }
-                printer.printShortLine("Your answer: ");
+                printer.printShortLine(localeUtil.getLocaleMessage("answer") + ": ");
                 String answer = dataInput.getData();
                 StudentAnswer studentAnswer = new StudentAnswer(answer, question);
 
@@ -52,8 +54,6 @@ public class ExamServiceImpl implements ExamService {
             }
         }
 
-        answerList.add(correctAnswerSet);
-        answerList.add(incorrectAnswerSet);
         return new ExamResult(correctAnswerSet, incorrectAnswerSet);
     }
 
