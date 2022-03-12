@@ -22,11 +22,18 @@ import java.util.List;
 public class QuestionDaoImpl implements QuestionDao {
 
     private final String fileName;
+    private final String locale;
+    private final String fileFormat;
     private final QuestionConverter converter;
 
-    public QuestionDaoImpl(QuestionConverter converter, @Value("${filename}") String fileName) {
+    public QuestionDaoImpl(QuestionConverter converter,
+                           @Value("${filename}") String fileName,
+                           @Value("${main.locale}") String locale,
+                           @Value("${fileFormat}") String fileFormat) {
         this.converter = converter;
         this.fileName = fileName;
+        this.locale = locale;
+        this.fileFormat = fileFormat;
     }
 
     public List<Question> getQuestions() {
@@ -37,7 +44,7 @@ public class QuestionDaoImpl implements QuestionDao {
     public List<List<String>> getData() {
         List<List<String>> questionAndAnswersList = new ArrayList<>();
 
-        InputStream in = getClass().getResourceAsStream(fileName);
+        InputStream in = getClass().getResourceAsStream(fileName + locale + fileFormat);
         if (in != null) {
             InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
 
