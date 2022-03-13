@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.Locale;
 
 @Service
-public record LocaleService(String locale, MessageSource messageSource) {
+public class LocaleService {
+    private final String locale;
+    private final MessageSource messageSource;
 
     public LocaleService(@Value("${main.locale}") String locale, MessageSource messageSource) {
         this.locale = locale;

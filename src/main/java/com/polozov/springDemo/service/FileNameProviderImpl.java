@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public record FileNameProviderImpl(String fileName, String locale,
-                                   String fileFormat) implements FileNameProvider {
+public class FileNameProviderImpl implements FileNameProvider {
+        private final String fileName;
+        private final String locale;
+        private final String fileFormat;
 
     public FileNameProviderImpl(
             @Value("${filename}") String fileName,
