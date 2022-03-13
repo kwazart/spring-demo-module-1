@@ -9,6 +9,6 @@ spring:
 
 
 countOfRightAnswer: 3
-main.locale: en
+main.locale: ru
 filename: /additional/questions-
 fileFormat: .csv
