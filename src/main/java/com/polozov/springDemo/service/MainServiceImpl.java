@@ -7,8 +7,6 @@ import com.polozov.springDemo.view.DataPrinter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Formatter;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -18,12 +16,18 @@ public class MainServiceImpl implements MainService {
     private final StudentService studentService;
     private final ExamService examService;
     private final DataPrinter printer;
+    private final InputAndLocaleServiceFacade inputAndLocaleServiceFacade;
 
-    public MainServiceImpl(StudentService studentService, ExamService examService, DataPrinter printer, @Value("${countOfRightAnswer}") Integer boundQuantityOfRightAnswers) {
+    public MainServiceImpl(StudentService studentService,
+                           ExamService examService,
+                           DataPrinter printer,
+                           @Value("${countOfRightAnswer}") Integer boundQuantityOfRightAnswers,
+                           InputAndLocaleServiceFacade inputAndLocaleServiceFacade) {
         this.studentService = studentService;
         this.examService = examService;
         this.printer = printer;
         this.boundQuantityOfRightAnswers = boundQuantityOfRightAnswers;
+        this.inputAndLocaleServiceFacade = inputAndLocaleServiceFacade;
     }
 
     @Override
@@ -33,15 +37,19 @@ public class MainServiceImpl implements MainService {
         result.setStudent(student);
 
         boolean isPassed = checkExamResult(result.getCorrectStudentAnswer());
-        Formatter resultString = new Formatter();
-        resultString.format("%s, вы ответили правильно на %d вопросов, экзамен %s",
-                result.getStudent().getFirstName(),
-                result.getCorrectStudentAnswer().size(),
-                isPassed ? "пройден" : "не пройден");
-        printer.printLine(resultString.toString());
+
+        String code = getNameProperty(isPassed);
+
+        String resultString = inputAndLocaleServiceFacade.getLocaleMessage(code, result.getStudent().getFirstName(),
+                String.valueOf(result.getCorrectStudentAnswer().size()));
+        printer.printLine(resultString);
     }
 
     private boolean checkExamResult(Set<StudentAnswer> studentAnswers) {
         return studentAnswers.size() >= boundQuantityOfRightAnswers;
+    }
+
+    private String getNameProperty(boolean isPassed) {
+        return String.format("exam.result.%s", isPassed ? "success" : "failed");
     }
 }

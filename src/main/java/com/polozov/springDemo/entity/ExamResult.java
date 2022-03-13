@@ -1,7 +1,6 @@
 package com.polozov.springDemo.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,7 @@ public class ExamResult {
     private Set<StudentAnswer> incorrectStudentAnswer;
     private Set<StudentAnswer> correctStudentAnswer;
 
-    public ExamResult(Set<StudentAnswer> incorrectStudentAnswer, Set<StudentAnswer> correctStudentAnswer) {
+    public ExamResult(Set<StudentAnswer> correctStudentAnswer, Set<StudentAnswer> incorrectStudentAnswer) {
         this.incorrectStudentAnswer = incorrectStudentAnswer;
         this.correctStudentAnswer = correctStudentAnswer;
     }
