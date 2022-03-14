@@ -1,5 +1,6 @@
 package com.polozov.springDemo.service;
 
+import com.polozov.springDemo.annotation.MethodLogger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class FileNameProviderImpl implements FileNameProvider {
         this.fileFormat = fileFormat;
     }
 
+    @MethodLogger
     @Override
     public String getFilename() {
         return fileName + locale + fileFormat;

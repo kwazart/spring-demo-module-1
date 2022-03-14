@@ -12,13 +12,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoggingServiceAspect {
 
-    @Pointcut("@target(org.springframework.stereotype.Service)")
-    private void serviceAnnotated() {}
+    @Pointcut("@annotation(com.polozov.springDemo.annotation.MethodLogger)")
+    private void methodLoggerAnnotated() {}
 
-    @Pointcut("execution(public * com.polozov.springDemo.service.*.* (..))")
-    private void servicePackage() {}
-
-    @Before("serviceAnnotated() && servicePackage()")
+    @Before("methodLoggerAnnotated()")
     public void logServiceBefore(JoinPoint point) {
         log.info("Called method: " + point.getSignature().getName());
     }
