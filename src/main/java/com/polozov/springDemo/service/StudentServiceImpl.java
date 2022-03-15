@@ -1,5 +1,6 @@
 package com.polozov.springDemo.service;
 
+import com.polozov.springDemo.annotation.MethodLogger;
 import com.polozov.springDemo.entity.Student;
 import com.polozov.springDemo.view.DataPrinter;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class StudentServiceImpl implements StudentService{
         this.inputAndLocaleServiceFacade = inputAndLocaleServiceFacade;
     }
 
+    @MethodLogger
     @Override
     public Student readStudent() {
         askFirstName();
