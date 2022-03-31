@@ -8,6 +8,9 @@ spring:
     basename: i18n/messages
   main:
     allow-circular-references: true
+#  shell:
+#    interactive:
+#      enabled: false
 
 
 countOfRightAnswer: 3
