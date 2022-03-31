@@ -2,6 +2,7 @@ package com.polozov.dao;
 
 import com.polozov.springDemo.dao.QuestionDao;
 import com.polozov.springDemo.dao.QuestionDaoImpl;
+import com.polozov.springDemo.entity.Question;
 import com.polozov.springDemo.service.FileNameProvider;
 import com.polozov.springDemo.service.FileNameProviderImpl;
 import com.polozov.springDemo.util.QuestionConverter;
@@ -42,12 +43,5 @@ public class QuestionDaoImplTest {
         QuestionDaoImpl dao = new QuestionDaoImpl(converter, nameProvider);
         List<List<String>> data = dao.getData();
         Assertions.assertNotNull(data);
-    }
-
-    @DisplayName("Количество считанных вопросов больше нуля")
-    @Test
-    void shouldHaveQuestionListMoreThanZero() {
-        QuestionDaoImpl dao = new QuestionDaoImpl(converter, nameProvider);
-        Assertions.assertTrue(dao.getData().size() > 0);
     }
 }
